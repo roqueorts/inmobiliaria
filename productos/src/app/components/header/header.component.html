@@ -1,0 +1,10 @@
+<p>header works!</p>
+<app-search></app-search>
+<div appHighlight="yellow">
+    <ul>
+        <li *ngFor="let item of $products | async ">
+            <span>{{ item.id }} </span>
+        </li>
+    </ul>
+
+</div>
