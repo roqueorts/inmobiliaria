@@ -7,11 +7,15 @@ import {
 } from 'rxjs/operators';
 import { Hero } from 'src/app/interfaces/hero';
 import { ProductService } from 'src/app/services/product.service';
+import { RouterLink } from '@angular/router';
+import { NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
+  standalone: true,
+  imports: [NgFor, RouterLink, AsyncPipe]
 })
 export class SearchComponent implements OnInit {
   heroes$!: Observable<Hero[]>;

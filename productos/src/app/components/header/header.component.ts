@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Observable } from 'rxjs';
 import { Hero } from '../../interfaces/hero';
+import { NgFor, AsyncPipe } from '@angular/common';
+import { SearchComponent } from '../search/search.component';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    standalone: true,
+    imports: [SearchComponent, NgFor, AsyncPipe]
 })
 export class HeaderComponent implements OnInit {
 
