@@ -13,7 +13,10 @@ export class ProductService {
 
     private heroesUrl = 'api/heroes';  // URL to web api
     httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            Authorization: 'my-auth-token'
+        })
     };
 
     constructor(private http: HttpClient) {
@@ -41,22 +44,22 @@ export class ProductService {
     }
     /** GET heroes from the server */
     getHeroes(): Observable<Hero[]> {
-        /*return this.http.get<Hero[]>(this.heroesUrl).pipe(
+        return this.http.get<Hero[]>(this.heroesUrl).pipe(
             tap(_ => console.log('fetched heroes')),
             catchError(this.handleError<Hero[]>('getHeroes', []))
-        );*/
-        const heroes = [
-            { id: 12, name: 'Dr. Nice' },
-            { id: 13, name: 'Bombasto' },
-            { id: 14, name: 'Celeritas' },
-            { id: 15, name: 'Magneta' },
-            { id: 16, name: 'RubberMan' },
-            { id: 17, name: 'Dynama' },
-            { id: 18, name: 'Dr. IQ' },
-            { id: 19, name: 'Magma' },
-            { id: 20, name: 'Tornado' }
-        ];
-        return of(heroes);
+        );
+        /*   const heroes = [
+               { id: 12, name: 'Dr. Nice' },
+               { id: 13, name: 'Bombasto' },
+               { id: 14, name: 'Celeritas' },
+               { id: 15, name: 'Magneta' },
+               { id: 16, name: 'RubberMan' },
+               { id: 17, name: 'Dynama' },
+               { id: 18, name: 'Dr. IQ' },
+               { id: 19, name: 'Magma' },
+               { id: 20, name: 'Tornado' }
+           ];
+           return of(heroes);*/
     }
 
     /** GET hero by id. Will 404 if id not found */
@@ -95,7 +98,7 @@ export class ProductService {
     }
 
     /* GET heroes whose name contains search term */
-    searchHeroes(term: string): Observable<Hero[]> {
+    searchHeroes(term: string, withRefresh: boolean): Observable<Hero[]> {
         if (!term.trim()) {
             // if not search term, return empty hero array.
             return of([]);

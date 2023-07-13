@@ -2,20 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Observable } from 'rxjs';
 import { Hero } from '../../interfaces/hero';
-import { NgFor, AsyncPipe } from '@angular/common';
-import { SearchComponent } from '../search/search.component';
+import { NgOptimizedImage } from '@angular/common';
+import { LogUpdateService } from 'src/app/services/log-update.service';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    standalone: true,
-    imports: [SearchComponent, NgFor, AsyncPipe]
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  // imports: [NgOptimizedImage]
 })
 export class HeaderComponent implements OnInit {
 
   public $products: Observable<Hero[]> | undefined;
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private logUpdateService: LogUpdateService) {
 
 
   }
@@ -23,10 +22,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
-    this.load();
+    this.loadProducts();
   }
 
-  load(): void {
+  loadProducts(): void {
     this.$products = this.productService.getHeroes();
     this.productService.getHeroes().subscribe(products => {
       console.log(products);
@@ -46,5 +45,6 @@ export class HeaderComponent implements OnInit {
     // this.products = this.products.filter(h => h !== hero);
     this.productService.deleteHero(hero.id).subscribe();
   }
+
 
 }
